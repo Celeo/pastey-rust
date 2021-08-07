@@ -1,18 +1,28 @@
 use anyhow::Result;
+use chrono::{DateTime, Utc};
 use sqlx::{Connection, Executor, SqliteConnection};
 use std::{fs::File, path::Path};
 
 const DB_FILE_NAME: &str = "data.db";
 const SQL_CREATE_TABLE: &str = "
     CREATE TABLE IF NOT EXISTS pastes (
-        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        uuid TEXT NOT NULL PRIMARY KEY,
         content TEXT,
         lang TEXT,
-        update_code TEXT,
         add_date DATETIME,
         purge_date DATETIME
     );
 ";
+const SQL_QUERY_ROW: &str = "SELECT * FROM pastes WHERE uuid = ?;";
+
+#[derive(sqlx::FromRow)]
+pub struct PasteInfo {
+    pub uuid: i64,
+    pub content: String,
+    pub lang: String,
+    pub add_date: DateTime<Utc>,
+    pub purge_date: DateTime<Utc>,
+}
 
 pub async fn get_db() -> std::result::Result<SqliteConnection, sqlx::Error> {
     SqliteConnection::connect(DB_FILE_NAME).await
@@ -24,4 +34,14 @@ pub async fn setup_db() -> Result<()> {
     }
     get_db().await?.execute(SQL_CREATE_TABLE).await?;
     Ok(())
+}
+
+pub async fn get_paste(uuid: &str) -> Result<Option<PasteInfo>> {
+    let mut conn = get_db().await?;
+    let info = sqlx::query_as::<_, PasteInfo>(SQL_QUERY_ROW)
+        .bind(uuid)
+        .fetch_optional(&mut conn)
+        .await?;
+    // TODO if found and after purge date, then delete and return None
+    Ok(info)
 }

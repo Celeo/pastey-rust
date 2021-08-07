@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %}
+<h2>View paste</h2>
+<table class="striped">
+  <tbody>
+    <tr>
+      <th>Language</th>
+      <td>{{ info.lang }}</td>
+    </tr>
+    <tr>
+      <th>Language</th>
+      <td>{{ info.lang }}</td>
+    </tr>
+    <tr>
+      <th>Added</th>
+      <td>{{ info.add_date }}</td>
+    </tr>
+    <tr>
+      <th>Available until</th>
+      <td>{{ info.purge_date }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- TODO swap with syntax-highlighted area -->
+<textarea class="materialize-textarea">
+  {{ info.content }}
+</textarea>
+{% endblock %}

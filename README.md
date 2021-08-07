@@ -2,11 +2,12 @@
 
 [![CI](https://github.com/Celeo/pastey/workflows/CI/badge.svg?branch=master)](https://github.com/celeo/pastey/actions?query=workflow%3ACI)
 
-TODO
+Simple paste website
 
 ## Installing
 
-TODO
+- Clone
+- Build with `cargo b`
 
 ## Using
 
@@ -18,8 +19,8 @@ TODO
 
 #### Requirements
 
-* Git
-* A recent version of [Rust](https://www.rust-lang.org/tools/install)
+- Git
+- A recent version of [Rust](https://www.rust-lang.org/tools/install)
 
 #### Steps
 
@@ -33,8 +34,8 @@ cargo build
 
 Licensed under either of
 
-* Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE))
-* MIT license ([LICENSE-MIT](LICENSE-MIT))
+- Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE))
+- MIT license ([LICENSE-MIT](LICENSE-MIT))
 
 ## Contributing
 
