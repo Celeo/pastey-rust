@@ -1,4 +1,83 @@
 {% extends "base.html" %} {% block content %}
 <h2>New paste</h2>
-<!-- TODO -->
+
+<div class="row">
+  <form action="/new/save" method="post" class="col s12" id="form-new">
+    <div class="row">
+      <div class="input-field col s6">
+        <select name="language" id="lagnauge">
+          <option value="plain" selected>Plan text</option>
+          <option value="Bash">Bash</option>
+          <option value="C">C</option>
+          <option value="C#">C#</option>
+          <option value="C++">C++</option>
+          <option value="CSS">CSS</option>
+          <option value="Diff">Diff</option>
+          <option value="Go">Go</option>
+          <option value="HTML, XML">HTML, XML</option>
+          <option value="JSON">JSON</option>
+          <option value="Java">Java</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="Kotlin">Kotlin</option>
+          <option value="Less">Less</option>
+          <option value="Lua">Lua</option>
+          <option value="Makefile">Makefile</option>
+          <option value="Markdown">Markdown</option>
+          <option value="Objective-C">Objective-C</option>
+          <option value="PHP">PHP</option>
+          <option value="PHP Template">PHP Template</option>
+          <option value="Perl">Perl</option>
+          <option value="Plain text">Plain text</option>
+          <option value="Python">Python</option>
+          <option value="Python REPL">Python REPL</option>
+          <option value="R">R</option>
+          <option value="Ruby">Ruby</option>
+          <option value="Rust">Rust</option>
+          <option value="SCSS">SCSS</option>
+          <option value="SQL">SQL</option>
+          <option value="Shell Session">Shell Session</option>
+          <option value="Swift">Swift</option>
+          <option value="TOML, also INI">TOML, also INI</option>
+          <option value="TypeScript">TypeScript</option>
+          <option value="Visual Basic .NET">Visual Basic .NET</option>
+          <option value="YAML">YAML</option>
+        </select>
+        <label for="language">Language</label>
+      </div>
+      <div class="input-field col s6">
+        <select name="purge_after" id="purge_after">
+          <option value="15min" selected>15 minutes</option>
+          <option value="30min">30 minutes</option>
+          <option value="1hr">1 hour</option>
+          <option value="1d">1 day</option>
+          <option value="1w">1 week</option>
+          <option value="1mo">1 month</option>
+        </select>
+        <label for="purge_after">Purge after</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="content" class="materialize-textarea"></textarea>
+        <label for="content">Content</label>
+      </div>
+    </div>
+    <div class="row">
+      <button
+        class="btn waves-effect waves-light light-green darken-3"
+        type="submit"
+        name="action"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    M.FormSelect.init(document.querySelectorAll("select"), {});
+  });
+</script>
+
 {% endblock %}
