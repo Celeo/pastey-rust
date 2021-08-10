@@ -11,6 +11,11 @@ mod routes;
 
 #[tokio::main]
 async fn main() {
+    // TODO spin up a tokio runtime and include a separate thread for the cleanup of expired pastes
+    run_server().await;
+}
+
+async fn run_server() {
     if Path::new(".env").exists() {
         dotenv::dotenv().expect("Could not load .env file");
     }
