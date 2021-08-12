@@ -20,17 +20,19 @@ categories = [
 
 [dependencies]
 anyhow = "1.0.42"
-askama = "0.10.5"
 axum = "0.1.3"
 bytes = "1.0.1"
-chrono = "0.4.19"
+chrono = { version = "0.4.19", features = ["serde"] }
 dotenv = "0.15.0"
 http = "0.2.4"
 http-body = "0.4.2"
 log = "0.4.14"
+once_cell = "1.8.0"
 pretty_env_logger = "0.4.0"
+serde = { version = "1.0.127", features = ["derive"] }
 sqlx = { version = "0.5.5", features = ["chrono", "runtime-tokio-rustls", "sqlite", "uuid"] }
+tera = "1.12.1"
 tokio = { version = "1.9.0", features = ["full"] }
-tower = { version = "0.4.8", features = ["full"] }
-tower-http = { version = "0.1.1", features = ["full"] }
+tower = { version = "0.4.8", default-features = false }
+tower-http = { version = "0.1.1", features = ["compression", "trace"] }
 uuid = { version = "0.8.2", features = ["serde", "v4"] }

@@ -1,7 +1,7 @@
 use axum::prelude::*;
 use log::{debug, info};
 use std::{net::SocketAddr, path::Path};
-use tower::ServiceBuilder;
+use tower::{util::MapResponseLayer, ServiceBuilder};
 use tower_http::{compression::CompressionLayer, trace::TraceLayer};
 
 mod data;
@@ -36,7 +36,8 @@ async fn run_server() {
         .route("/view/:uuid", get(routes::view_paste))
         .route("/new", get(routes::new_paste_page))
         .route("/new/save", post(routes::new_paste_page_save))
-        .layer(logging_middleware);
+        .layer(logging_middleware)
+        .layer(MapResponseLayer::new(routes::map_404));
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
 
     info!("Starting");

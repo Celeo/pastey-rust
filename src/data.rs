@@ -1,5 +1,6 @@
 use anyhow::Result;
 use chrono::{DateTime, Utc};
+use serde::Serialize;
 use sqlx::{Connection, Executor, SqliteConnection};
 use std::{fs::File, path::Path};
 
@@ -15,7 +16,7 @@ const SQL_CREATE_TABLE: &str = "
 ";
 const SQL_QUERY_ROW: &str = "SELECT * FROM pastes WHERE uuid = ?;";
 
-#[derive(sqlx::FromRow)]
+#[derive(sqlx::FromRow, Serialize)]
 pub struct PasteInfo {
     pub uuid: i64,
     pub content: String,
@@ -42,6 +43,5 @@ pub async fn get_paste(uuid: &str) -> Result<Option<PasteInfo>> {
         .bind(uuid)
         .fetch_optional(&mut conn)
         .await?;
-    // TODO if found and after purge date, then delete and return None
     Ok(info)
 }
